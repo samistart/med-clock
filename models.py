@@ -23,7 +23,7 @@ class Patient(Base):
     __tablename__ = 'Patient'
     id = Column('Id', Integer(), primary_key=True, nullable=False)
     age = Column('Age', Integer(), nullable=False)
-    attributes = Column('Age', String(), nullable=True)
+    attributes = Column('Attributes', String(), nullable=True)
 
     def __init__(self, age, attributes):
         self.age = age
@@ -36,8 +36,8 @@ class Stage(Base):
     patient_id = Column('Patient Id', Integer(), primary_key=True, nullable=False)
     number = Column('Number', Integer(), primary_key=True, nullable=False)
     name = Column('Name', String(), nullable=False)
-    start = Column('Timestamp', DateTime, default=datetime.datetime.now, index=True, nullable=False)
-    end = Column('Timestamp', DateTime, default=datetime.datetime.now, index=True, nullable=False)
+    start = Column('Start', DateTime, default=datetime.datetime.now, index=True, nullable=False)
+    end = Column('End', DateTime, default=datetime.datetime.now, index=True, nullable=False)
 
     def __init__(self, experiment_id, patient_id, number, name, start, end):
         self.experiment_id = experiment_id
