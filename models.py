@@ -34,14 +34,16 @@ class Stage(Base):
     __tablename__ = 'Stage'
     experiment_id = Column('Experiment Id', Integer(), primary_key=True, nullable=False)
     patient_id = Column('Patient Id', Integer(), primary_key=True, nullable=False)
-    stage = Column('Stage', Integer(), primary_key=True, nullable=False)
+    number = Column('Number', Integer(), primary_key=True, nullable=False)
+    name = Column('Name', String(), nullable=False)
     start = Column('Timestamp', DateTime, default=datetime.datetime.now, index=True, nullable=False)
     end = Column('Timestamp', DateTime, default=datetime.datetime.now, index=True, nullable=False)
 
-    def __init__(self, experiment_id, patient_id, stage, start, end):
+    def __init__(self, experiment_id, patient_id, number, name, start, end):
         self.experiment_id = experiment_id
         self.patient_id = patient_id
-        self.stage = stage
+        self.number = number
+        self.name = name
         self.start = start
         self.end = end
 
