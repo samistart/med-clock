@@ -68,6 +68,7 @@ def update_patient(id):
 @app.route('/api/patient/create', methods=['POST'])
 def create_patient():
     session = DBSession()
+    session.expire_on_commit = False
     patient = Patient()
     stmt = session.add(patient)
     session.commit()
