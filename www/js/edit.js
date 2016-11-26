@@ -29,7 +29,7 @@ var STAGES = [
         query : "#enter-waiting-room-done"
     },
     {
-        key : "exit_waiting_room_done",
+        key : "leave_waiting_room_done",
         query : "#exit-waiting-room-done"
     }
 ]
@@ -106,6 +106,7 @@ function setStages( id, doLoop ) {
     return qwest.get( "/api/patient/" + id )
         .then( function( xhr, patient ) {
             console.log( "retrieved fresh set of stages for: " + id );
+            console.log( patient );
             _.each( STAGES, function( stage ) {
                 var completed = patient[ stage.key ] !== null;
                 var endTime = completed ? moment( patient[ stage.key ] ) : moment().utc();
@@ -122,6 +123,14 @@ function setStages( id, doLoop ) {
                             });
                     });
             });
+
+            var allDone = _.every( STAGES, function( stage ) {
+                return patient[ stage.key ] !== null;
+            });
+
+            if( allDone ) {
+                window.location = "/www/html/satisfaction.html";
+            }
 
             if( doLoop )
                 setTimeout( function() {
