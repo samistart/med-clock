@@ -1,14 +1,12 @@
 import os
-from flask import Flask, jsonify, redirect, send_file
-from flask_restful import Resource, Api
-from models import Stage
+from flask import Flask, redirect, send_file, request, jsonify
+from models import Stage, Patient, Experiment
 from database import db
 from models import DBSession
 
 app = Flask(__name__)
 app.config.from_pyfile('config.py')
 db.init_app(app)
-api = Api(app)
 
 
 @app.route("/www/<fname>")
@@ -20,34 +18,47 @@ def www(fname):
 def homepage():
     return redirect("/www/scan.html")
 
-class Experiment(Resource):
-    def get(self):
-        return {'name': 'Dialysis'}
-
-
-class Patient(Resource):
-    def get(self):
-        return {'name': 'Sami'}
-
-
-api.add_resource(Experiment, '/experiment')
-api.add_resource(Patient, '/patient')
-
-
-@app.route('/experiment/<id>')
-def get_experiment(id):
-    print(id)
-    return ""
 
 # fetches the patient data given an id
 # returns the data associated with said patient
 # as well as any stage timings that have been recorded
 
 
-@app.route('/patient/<id>')
-def get_patient(id):
-    print(id)
-    return "output : data : {{name :    name, id   :   5, data_cols : [ 'age', 'height', 'anal_cavity'], stages : [ 'waiting', 'dialysis', 'weighing' ]}, stages : { dialysis : { start : '05:30', end : null }, waiting : { start : '04:30', end : '05:30' }, weighing : { start : null, end : null }}"
+@app.route('/api/patient/<id>', methods=['GET', 'POST'])
+def patient(id):
+    content = request.get_json(silent=True)
+    session = DBSession()
+    result = session.query(Patient).filter_by(id=id).first()
+    print content
+    return jsonify({
+        'age': result.age,
+        'attributes': result.attributes
+    })
+
+
+@app.route('/api/experiment/<id>', methods=['GET', 'POST'])
+def experiment(id):
+    content = request.get_json(silent=True)
+    session = DBSession()
+    result = session.query(Experiment).filter_by(id=id).first()
+    print content
+    return jsonify({
+        'name': result.name,
+    })
+
+
+@app.route('/api/stage/<experiment_id>', methods=['GET', 'POST'])
+def stage(experiment_id):
+    content = request.get_json(silent=False)
+    print(content)
+    session = DBSession()
+    results = session.query(Stage).filter_by(experiment_id=experiment_id)
+    results_json = {}
+    for i, result in enumerate(results):
+        results_json[i] = {
+            'name': result.name,
+        }
+    return jsonify(results_json)
 
 # # updates a patient record with data and a set of stage timings
 # # returns nothing
