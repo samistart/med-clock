@@ -3,10 +3,27 @@ from flask import Flask, redirect, send_file, request, jsonify, abort
 from models import Patient
 from database import db
 from models import DBSession
+from sqlalchemy.orm.exc import NoResultFound
 
 app = Flask(__name__)
 app.config.from_pyfile('config.py')
 db.init_app(app)
+
+
+class InvalidUsage(Exception):
+    status_code = 400
+
+    def __init__(self, message, status_code=None, payload=None):
+        Exception.__init__(self)
+        self.message = message
+        if status_code is not None:
+            self.status_code = status_code
+        self.payload = payload
+
+    def to_dict(self):
+        rv = dict(self.payload or ())
+        rv['message'] = self.message
+        return rv
 
 
 @app.route("/www/<path:fname>")
@@ -55,10 +72,17 @@ def read_patient(id):
         "leave_waiting_room_done": str_date(patient.leave_waiting_room_done)
     })
 
-@app.route( "/api/macmap", methods = [ "GET" ] )
-def get_patient_id():
-    mac_address = request.args[ "mac" ]
-    return jsonify( 52 ) # find the patient id for me please
+
+@app.route("/api/macmap/<mac_address>", methods = ["GET"])
+def get_patient_id(mac_address):
+    content = request.get_json(silent=True)
+    session = DBSession()
+    try:
+        patient = session.query(Patient).filter_by(mac_address=mac_address).one()
+    except NoResultFound:
+        return InvalidUsage('Mac address not found', status_code=404)
+    session.close()
+    return jsonify(patient.id)
 
 
 @app.route('/api/patient/<id>', methods=['PUT'])
@@ -84,8 +108,10 @@ def create_patient():
     if content and ("mac_address" in content):
         patient.mac_address = content["mac_address"]
     stmt = session.add(patient)
+    print(patient.id)
     session.commit()
     id = patient.id
+    print(patient.id)
     session.close()
     return jsonify(patient.id)
 
