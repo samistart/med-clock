@@ -5,6 +5,8 @@ from urllib import urlencode
 
 
 devices = {}
+serverIp = "52.211.183.223"
+
 
 def enterStage(addr, timestamp):
         client = HTTPClient()
@@ -12,7 +14,7 @@ def enterStage(addr, timestamp):
         body = {"experiment_id": 1, "patient_id": 1, "stage_id": 1, "patient": addr, "timestamp": timestamp}
 
 
-        response = client.fetch("http://127.0.0.1:5000/api/stage/1",method="POST", body=urlencode(body), headers=urlencode({}))
+        response = client.fetch("http://"+serverIp+":5000/api/stage/1",method="POST", body=urlencode(body), headers=urlencode({}))
 
         print(response.body)
         client.close()

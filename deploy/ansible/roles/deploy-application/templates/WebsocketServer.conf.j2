@@ -1,8 +1,7 @@
-[program:WebsocketServer.py]
-command=sudo /usr/share/python/insights/bin/python -m insights
+[program:MiskServer.py]
+command=sudo python -m app
 user=root
 priority=1                                              ; the relative start pr$
 autostart=true                                          ; start at supervisord $
 autorestart=true                                        ; whether/when to resta$
 startretries=30                                         ; max # of serial start$
-environment = NEW_RELIC_CONFIG_FILE="/home/ubuntu/newrelic.ini",SOCKET_SERVER_ENV="{{ env }}",DATABASE_HOST="{{database_host}}",DATABASE_USER="{{database_user}}",DATABASE_PASS="{{database_password}}",DATABASE_NAME="{{database_name}}"

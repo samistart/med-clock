@@ -58,7 +58,7 @@ def update_patient(id):
 
 
 def main():
-    app.run()
+    app.run("0.0.0.0")
 
 if __name__ == '__main__':
     main()
