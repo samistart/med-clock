@@ -27,6 +27,10 @@ var STAGES = [
     {
         key : "enter_waiting_room_done",
         query : "#enter-waiting-room-done"
+    },
+    {
+        key : "exit_waiting_room_done",
+        query : "#exit-waiting-room-done"
     }
 ]
 
@@ -90,43 +94,49 @@ function setAttributes( id ) {
                     .val( patient[ attr.key ] )
                     .unbind()
                     .on( "change", _.debounce(function() {
-                        updateVal( attr.key, attr.parseFn( $(this).val() ) );
+                        updateVal( id, attr.key, attr.parseFn( $(this).val() ) );
                     },500))
             });
         });
 }
 
-function setStages( id ) {
+function setStages( id, doLoop ) {
 
     return qwest.get( "/api/patient/" + id )
         .then( function( xhr, patient ) {
             console.log( "retrieved fresh set of stages for: " + id );
             _.each( STAGES, function( stage ) {
                 var completed = patient[ stage.key ] !== null;
+                var endTime = completed ? moment( patient[ stage.key ] ) : moment().utc();
+                $( stage.query + " span" )
+                    .text( endTime.format() );
                 $( stage.query + " button" )
                     .prop( "disabled", completed )
                     .text( completed ? "Completed" : "Complete" )
                     .unbind()
                     .on( "click", function() {
-                        updateVal( stage.key, moment().utc().format() )
+                        updateVal( id, stage.key, moment().utc().format() )
                             .then( function() {
-                                setStages( id );
+                                setStages( id, false );
                             });
                     });
             });
 
-            setTimeout( function() {
-                setStages( id );
-            }, 1000 );
+            if( dooLoop )
+                setTimeout( function() {
+                    setStages( id, doLoop );
+                }, 1000 );
 
         });
 }
 
 $(document).ready(function() {
 
+    qwest.setDefaultDataType( "json" );
     var id = querystring.parse().id;
+    $("#id-field").val( id );
     setAttributes( id );
-    setStages( id );
+    setStages( id, true );
 
 
 });

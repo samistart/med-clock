@@ -25,6 +25,10 @@ def homepage():
 # returns the data associated with said patient
 # as well as any stage timings that have been recorded
 
+def str_date( dt ):
+    if dt is not None:
+        dt = dt.isoformat()
+    return dt
 
 @app.route('/api/patient/<id>', methods=['GET'])
 def read_patient(id):
@@ -41,20 +45,25 @@ def read_patient(id):
         "vascular_access": patient.vascular_access,
         "mobility": patient.mobility,
         "nurse_seniority": patient.nurse_seniority,
-        "enter_waiting_room": patient.enter_waiting_room,
-        "leave_waiting_room": patient.leave_waiting_room,
-        "nurse_begins_prep": patient.nurse_begins_prep,
-        "begin_dialysis": patient.begin_dialysis,
-        "end_dialysis": patient.end_dialysis,
-        "nurse_applies_bandage": patient.nurse_applies_bandage,
-        "enter_waiting_room_done": patient.enter_waiting_room_done,
-        "leave_waiting_room_done": patient.leave_waiting_room_done
+        "enter_waiting_room": str_date(patient.enter_waiting_room),
+        "leave_waiting_room": str_date(patient.leave_waiting_room),
+        "nurse_begins_prep": str_date(patient.nurse_begins_prep),
+        "begin_dialysis": str_date(patient.begin_dialysis),
+        "end_dialysis": str_date(patient.end_dialysis),
+        "nurse_applies_bandage": str_date(patient.nurse_applies_bandage),
+        "enter_waiting_room_done": str_date(patient.enter_waiting_room_done),
+        "leave_waiting_room_done": str_date(patient.leave_waiting_room_done)
     })
 
+@app.route( "/api/macmap", methods = [ "GET" ] )
+def get_patient_id():
+    mac_address = request.args[ "mac" ]
+    return jsonify( 52 ) # find the patient id for me please
 
-@app.route('/api/patient/<id>/data', methods=['POST'])
+@app.route('/api/patient/<id>', methods=['PUT'])
 def update_patient(id):
     content = request.get_json(silent=True)
+    print content
     session = DBSession()
     patient = session.query(Patient).filter_by(id=id).one()
     for key, value in content.iteritems():
@@ -73,7 +82,7 @@ def create_patient():
     stmt = session.add(patient)
     session.commit()
     session.close()
-    return jsonify({})
+    return jsonify(patient.id)
 
 
 def main():

@@ -9,6 +9,7 @@
 		<link href='https://cdnjs.cloudflare.com/ajax/libs/hover.css/2.0.2/css/hover-min.css' rel='stylesheet' type='text/css'>
 		<link rel='stylesheet' href='/www/css/style.css'>
 		<style>
+
 		</style>
 	</head>
 	<body>
@@ -22,7 +23,7 @@
 			</div>
 			<div class='row'>
 				<div class='col-xs-3 col-lowpad'>
-					<div class='md-card' style='padding:15px 0px'>
+					<div class='md-card animated fadeInLeft' style='padding:15px 0px; animation-duration:1.6s'>
 						<center>
 							<h4 class='h-field'>
 								CARE TIME
@@ -35,7 +36,7 @@
 					</div>
 				</div>
 				<div class='col-xs-3 col-lowpad'>
-					<div class='md-card' style='padding:15px 0px'>
+					<div class='md-card animated fadeInLeft' style='padding:15px 0px'>
 						<center>
 							<h4 class='h-field'>
 								SATISFACTION
@@ -49,48 +50,155 @@
 					</div>
 				</div>
 				<div class='col-xs-3 col-lowpad'>
-					<div class='md-card' style='padding:15px 0px'>
+					<div class='md-card animated fadeInRight' style='padding:15px 0px'>
 						<center>
 							<h4 class='h-field'>
-								PATIENT SATISFACTION
+								AVERAGE AGE
 							</h4>
 							<h4 class='h-thin'>
-								SCORE OUT OF 100
+								ALL PATIENTS
 							</h4>
-							<span style='font-size:30px;font-weight:100''>42</span>
-							<span style='font-size:10px;font-weight:100''>/100</span>
+							<span style='font-size:30px;font-weight:100''>53</span>
+							<span style='font-size:10px;font-weight:100''>YEARS</span>
 						</center>
 					</div>
 				</div>
 				<div class='col-xs-3 col-lowpad'>
-					<div class='md-card' style='padding:15px 0px'>
+					<div class='md-card animated fadeInRight' style='padding:15px 0px; animation-duration:1.6s'>
 						<center>
 							<h4 class='h-field'>
-								VALUE ADDING TIME
+								DURATION
 							</h4>
 							<h4 class='h-thin'>
-								% OF OVERALL TIME
+								SINCE START
 							</h4>
-							<span style='font-size:30px;font-weight:100''>42</span>
-							<span style='font-size:10px;font-weight:100''>%</span>
+							<span style='font-size:30px;font-weight:100''>12.5</span>
+							<span style='font-size:10px;font-weight:100''>DAYS</span>
 						</center>
 					</div>
 				</div>
 			</div>
 			<div class='row'>
 				<div class='col-xs-12 col-lowpad'>
-					<h4 class='h-main'>YOUR AVERAGE PROCESS</h4>
-					<div class='md-card' style='overflow:auto !important'>
-						assad assad assad assad assad assad assad assad assad assad assad assad assad assad assad assad assad assad assad assad assad assad assad assad assad assad assad assad assad assad assad assad assad assad assad assad assad assad assad assad assad assad assad 
+					<h4 class='h-main' style='font-size:12px'>YOUR PROCESS</h4>
+					<style>
+						#graph-container img {
+							position:absolute;
+							width:98%;
+							height:auto;
+						}
+					</style>
+					<div id='graph-container' class='md-card' style='overflow:hidden !important;position:relative;min-height:260px;'>
+						<img src='/www/img/viz-1.png' class='animated fadeIn'>
+						<img src='/www/img/viz-2.png' class='animated fadeIn' style='animation-duration:2.1s'>
+						<img src='/www/img/viz-3.png' class='animated fadeInDown' style='animation-duration:2.5s'>
+						<img src='/www/img/viz-4.png' class='animated fadeInUp' style='animation-duration:2.5s'>
+						<img src='/www/img/viz-5.png' class='animated fadeInDown' style='animation-duration:3.5s'>
+						<img src='/www/img/viz-6.png' class='animated fadeInUp' style='animation-duration:3.8s'>
+						<img src='/www/img/viz-7.png' class='animated fadeIn' style='animation-duration:4s'>
 					</div>
 				</div>
 			</div>
 
 			<div class='row'>
-				<div class='col-xs-12 col-lowpad'>
-					<h4 class='h-main'>KEY AREAS TO EXPLORE</h4>
-					<div class='md-card' style='overflow:auto !important'>
-						
+				<div class='col-xs-6 col-lowpad'>
+					<h4 class='h-main' style='font-size:12px'>KEY ASSOCIATIONS TO EXPLORE</h4>
+					<div class='md-card' style='overflow:auto !important;padding:0'>
+						<style>
+							table img {width:30px;}
+							table th {background:#26EAB9;color:white;}
+							table {font-size:14px;font-weight:300;}
+						</style>
+						<table class='table' style='margin-bottom:0px'>
+							<tr>
+								<th style='letter-spacing:3px'>VARIABLE</th>
+								<th></th>
+								<th style='letter-spacing:3px'>VARIABLE</th>
+							</tr>
+							<tr>
+								<td>Mobility</td>
+								<td><img src='/www/img/chain-link.png'></td>
+								<td>Walking Time</td>
+							</tr>
+							<tr>
+								<td>Nurse Seniority</td>
+								<td><img src='/www/img/chain-link.png'></td>
+								<td>Preparation Time</td>
+							</tr>
+							<tr>
+								<td>Chest Line</td>
+								<td><img src='/www/img/chain-link.png'></td>
+								<td>Preparation Time</td>
+							</tr>
+							<tr>
+								<td>Chest Line</td>
+								<td><img src='/www/img/chain-link.png'></td>
+								<td>Patient Satisfaction</td>
+							</tr>
+							<tr>
+								<td>Mobility</td>
+								<td><img src='/www/img/chain-link.png'></td>
+								<td>Walking Time</td>
+							</tr>
+							<tr>
+								<td>Age</td>
+								<td><img src='/www/img/chain-link.png'></td>
+								<td>Dialysis Time</td>
+							</tr>
+						</table>	
+					</div>
+				</div>
+				<div class='col-xs-6 col-lowpad'>
+					<h4 class='h-main' style='font-size:12px'>EXPERIMENT DETAILS</h4>
+					<div class='md-card' style='overflow:auto !important;padding:0'>
+						<table class='table' style='margin-bottom:0px'>
+							<tr>
+								<th style='letter-spacing:3px;background:rgba(0,0,0,0.65);'>DETAILS</th>
+								<th style='letter-spacing:3px;background:rgba(0,0,0,0.65);'></th>
+							</tr>
+							<tr>
+								<td>
+									Start Time
+									<img src='/www/img/chain-link.png' style='visibility:hidden'>
+								</td>
+								<td>12<sup>th</sup> NOV 2016</td>
+							</tr>
+							<tr>
+								<td>
+									Mobility
+									<img src='/www/img/chain-link.png' style='visibility:hidden'>
+								</td>
+								<td>Walking Time</td>
+							</tr>
+							<tr>
+								<td>
+									Nurse Seniority
+									<img src='/www/img/chain-link.png' style='visibility:hidden'>
+								</td>
+								<td>Preparation Time</td>
+							</tr>
+							<tr>
+								<td>
+									Mobility
+									<img src='/www/img/chain-link.png' style='visibility:hidden'>
+								</td>
+								<td>Walking Time</td>
+							</tr>
+							<tr>
+								<td>
+									Mobility
+									<img src='/www/img/chain-link.png' style='visibility:hidden'>
+								</td>
+								<td>Walking Time</td>
+							</tr>
+							<tr>
+								<td>
+									Mobility
+									<img src='/www/img/chain-link.png' style='visibility:hidden'>
+								</td>
+								<td>Walking Time</td>
+							</tr>
+						</table>
 					</div>
 				</div>
 			</div>
