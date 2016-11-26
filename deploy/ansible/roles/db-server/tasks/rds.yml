@@ -1,0 +1,11 @@
+---
+
+- name: Create a new database
+  local_action:
+      module: mysql_db name="{{ database_name }}" state=present collation=utf8_general_ci login_host="{{ database_host }}" login_user="{{ central_database_user }}" login_password="{{ central_database_password }}"
+  no_log: True
+
+- name: Create a database user
+  local_action:
+        module: mysql_user name="{{ database_user }}" password="{{ database_password }}" priv="{{ database_name }}".*:ALL,GRANT host='%' state=present login_host="{{ database_host }}" login_user="{{ central_database_user }}" login_password="{{ central_database_password }}"
+  no_log: True

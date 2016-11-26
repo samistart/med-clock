@@ -1,0 +1,16 @@
+---
+
+- name: install dependency packages
+  apt: pkg={{ item }} state=latest update_cache=yes
+  with_items:
+    - python-pip
+
+- name: install s3cmd
+  shell: pip install s3cmd
+
+- name: configure s3cmd for root
+  template:
+    src: .s3cfg.j2
+    dest: /root/.s3cfg
+  when: env != "dev"
+

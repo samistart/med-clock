@@ -1,0 +1,11 @@
+
+- name: install supervisor
+  apt: name=supervisor state=present
+  sudo: yes
+
+- name: copy supervisord config for websocketserver
+  template: src=WebsocketServer.conf.j2 dest=/etc/supervisor/conf.d/WebsocketServer.conf
+  sudo: yes
+
+- supervisorctl: name=WebsocketServer.py state=restarted
+  sudo: yes

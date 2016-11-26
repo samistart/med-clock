@@ -1,0 +1,16 @@
+---
+# configuration for vagrant
+
+env: dev
+users:
+    - vagrant
+    - root
+hostname: med-clock
+linux_hostname: med-clock
+
+env_libs:
+    - libsqlite3-dev
+    - ruby1.9.1-dev
+    - siege
+    - git-core
+    - fish

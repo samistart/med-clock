@@ -1,0 +1,11 @@
+---
+
+- name: set hostname
+  hostname: name={{linux_hostname}}
+
+- name: Build hosts file
+  lineinfile: dest=/etc/hosts line='{{ hostvars[inventory_hostname].ansible_ssh_host }} {{ hostname }} {{ linux_hostname }}' state=present backup=yes
+
+- name: restart hostname
+  service: name=hostname state=restarted
+

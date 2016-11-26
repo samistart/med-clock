@@ -1,0 +1,16 @@
+
+- name: Disable env reset
+  replace: dest=/etc/sudoers  regexp='^\s*Defaults\s*env_reset\s*$' replace='Defaults    !env_reset' backup=yes
+  async: 45
+  poll: 0
+
+- name: Set ENV variables
+  lineinfile:
+      dest: /etc/environment
+      regexp: "^{{ item.var }}="
+      line: "{{item.var}}={{item.val}}"
+  with_items:
+      - { var: 'SOCKET_SERVER_ENV', val: "{{ env }}" }
+      - { var: 'PGSQL_USER', val: "{{ dbuser }}" }
+      - { var: 'PGSQL_PASS', val: "{{ dbpassword }}" }
+      - { var: 'PGSQL_NAME', val: "{{ dbname }}" }

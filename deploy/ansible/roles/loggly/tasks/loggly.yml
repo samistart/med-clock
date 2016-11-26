@@ -1,0 +1,16 @@
+- name: Configure Loggly ( syslog )
+  template:
+    src: loggly.conf.j2
+    dest: /etc/rsyslog.d/22-loggly.conf
+    group: root
+    owner: root
+    mode: 0640
+
+- name: Copy rsyslog conf
+  copy: src={{env}}/rsyslog.conf dest=/etc/rsyslog.conf
+  sudo: yes
+
+- name: restart rsyslog
+  service: name=rsyslog state=restarted enabled=yes
+  async: 45
+  poll: 0

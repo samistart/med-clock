@@ -1,0 +1,9 @@
+- name: Add AWS access keys to root only
+  sudo: True
+  lineinfile:
+    dest: /root/.bashrc
+    regexp: "^export {{ item.var }}="
+    line: "export {{item.var}}={{item.val}}"
+  with_items:
+      - { var: 'AWS_ACCESS_KEY_ID', val: "{{ aws_key_id }}" }
+      - { var: 'AWS_SECRET_ACCESS_KEY', val: "{{ aws_secret_key }}" }

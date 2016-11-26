@@ -1,0 +1,20 @@
+- name: Install MySQL packages
+  apt: name={{ item }} state=present
+  with_items:
+   - mysql-server-5.6
+   - python-pip
+   - python-mysqldb
+
+- name: Configure MySQL
+  copy: src="my.cnf"
+        dest=/etc/mysql/my.cnf
+        backup=yes
+
+- name: Start MySQL
+  service: name=mysql state=restarted enabled=yes
+
+- name: Create a new database
+  mysql_db: name="{{ database_name }}" state=present collation=utf8_general_ci
+
+- name: Create a database user
+  mysql_user: name="{{ database_user }}" password="{{ database_password }}" priv=*.*:ALL host='%' state=present

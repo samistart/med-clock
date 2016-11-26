@@ -1,0 +1,14 @@
+- include: build.yml
+  sudo: yes
+
+- name: disable env reset
+  replace: dest=/etc/sudoers  regexp='^\s*Defaults\s*env_reset\s*$' replace='Defaults    !env_reset' backup=yes
+  async: 45
+  sudo: yes
+  poll: 0
+
+- name: Run setup.py develop
+  command: python setup.py develop
+  sudo: yes
+  args:
+      chdir: /var/www/application

@@ -1,0 +1,12 @@
+
+
+- name: Add dh-virtualenv repository
+  apt_repository: repo='deb http://ppa.launchpad.net/spotify-jyrki/dh-virtualenv/ubuntu trusty main ' state=present update_cache=yes
+
+- name: Install build packages
+  apt: name={{item}} update_cache=yes force=yes state=latest
+  with_items:
+      - dh-virtualenv
+      - debhelper
+      - devscripts
+  sudo: yes

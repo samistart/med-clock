@@ -1,0 +1,14 @@
+- name: Create log directory
+  file: path=/var/log/med-clock state=directory mode=0755
+  sudo: yes
+
+- name: Make sure log files exist wit correct access rights
+  file: path=/var/log/med-clock/{{item}}.log state=touch mode=0775 owner=vagrant group=vagrant
+  sudo: yes
+  with_items:
+    - insights
+    - access
+
+- name: Config logrotate
+  template: src=logrotate.conf.j2 dest=/etc/logrotate.d/med-clock
+  sudo: yes

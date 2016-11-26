@@ -1,0 +1,39 @@
+- name: Provision infrastructure
+  hosts: localhost
+  connection: local
+  gather_facts: True
+  roles:
+    - aws
+  vars_files:
+      - "host_vars/{{env}}"
+      - "group_vars/{{env}}/encrypted-vars.yml"
+  tags: ['infrastructure']
+
+- name: configure the webservers
+  hosts: "tag_Name_med_clock_webservers_{{env}}_{{release}}"
+  user: ubuntu
+  sudo: yes
+  roles:
+    - common
+    - db-server
+    - server
+    - loggly
+    - final
+  vars_files:
+      - "host_vars/{{env}}"
+      - "group_vars/aws-keys"
+      - "group_vars/{{env}}/encrypted-vars.yml"
+  serial: 1
+  tags: ['infrastructure']
+
+- name: Deploy application
+  hosts: "tag_Name_med_clock_{{env}}_{{release}}:tag_Name_cm_poscenter_webservers_{{env}}_{{release}}"
+  user: ubuntu
+  gather_facts: True
+  roles:
+    - deploy-application
+  vars_files:
+    - "host_vars/{{env}}"
+    - "group_vars/aws-keys"
+    - "group_vars/{{env}}/encrypted-vars.yml"
+  tags: ['deploy']

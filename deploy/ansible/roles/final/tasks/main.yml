@@ -1,0 +1,7 @@
+---
+
+- name: Update locate DB
+  shell: apt-get update && updatedb
+  async: 45
+  poll: 0
+

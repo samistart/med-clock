@@ -1,0 +1,6 @@
+- include: pgsql.yml
+  when: env == "dev"
+  sudo: yes
+
+- include: rds.yml
+  when: env == "staging" or env == "prod"

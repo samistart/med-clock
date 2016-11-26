@@ -1,0 +1,28 @@
+- name: disable env reset
+  replace: dest=/etc/sudoers  regexp='^\s*Defaults\s*env_reset\s*$' replace='Defaults    !env_reset' backup=yes
+  async: 45
+  poll: 0
+
+- name: Set ENV variables
+  lineinfile:
+      dest=/etc/environment
+      insertafter=EOF
+      line="{{ item }}"
+      state=present
+  with_items:
+      - 'SOCKET_SERVER_ENV={{ env }}'
+  sudo: yes
+
+- name: Deploy application
+  script: deploy.sh "{{ build_number }}"
+  sudo: False
+  environment:
+          SOCKET_SERVER_ENV: "{{ env }}"
+          AWS_ACCESS_KEY_ID: "{{ AWS_ACCESS_KEY_ID }}"
+          AWS_SECRET_ACCESS_KEY: "{{ AWS_SECRET_ACCESS_KEY }}"
+
+- name: install poscenter package
+  apt: deb=/tmp/insights.deb state=installed update_cache=yes
+  sudo: yes
+
+- include: supervisor.yml

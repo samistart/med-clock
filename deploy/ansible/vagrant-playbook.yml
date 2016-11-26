@@ -1,0 +1,12 @@
+
+- hosts: all
+  gather_facts: false
+  roles:
+    - common
+    - env-vars
+    - db-server
+    - server
+    - init-application
+    - final
+  vars_files:
+    - "group_vars/dev/encrypted-vars.yml"
