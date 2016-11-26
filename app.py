@@ -77,9 +77,12 @@ def update_patient(id):
 
 @app.route('/api/patient', methods=['POST'])
 def create_patient():
+    content = request.get_json(silent=True)
     session = DBSession()
     session.expire_on_commit = False
     patient = Patient()
+    if content and ("mac_address" in content):
+        patient.mac_address = content["mac_address"]
     stmt = session.add(patient)
     session.commit()
     id = patient.id
