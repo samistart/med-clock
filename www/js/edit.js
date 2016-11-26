@@ -89,6 +89,7 @@ function setAttributes( id ) {
     return qwest.get( "/api/patient/" + id )
         .then( function( xhr, patient ) {
             console.log( "retrieved fresh set of attributes for: " + id );
+            $("#mac").text( patient.mac_address ? patient.mac_address : "no mac address" );
             _.each( ATTRIBUTES, function( attr ) {
                 $(attr.query)
                     .val( patient[ attr.key ] )
@@ -122,7 +123,7 @@ function setStages( id, doLoop ) {
                     });
             });
 
-            if( dooLoop )
+            if( doLoop )
                 setTimeout( function() {
                     setStages( id, doLoop );
                 }, 1000 );
@@ -134,7 +135,7 @@ $(document).ready(function() {
 
     qwest.setDefaultDataType( "json" );
     var id = querystring.parse().id;
-    $("#id-field").val( id );
+    $("#id-field").text( id );
     setAttributes( id );
     setStages( id, true );
 
