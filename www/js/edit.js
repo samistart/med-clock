@@ -90,7 +90,7 @@ function setAttributes( id ) {
                     .val( patient[ attr.key ] )
                     .unbind()
                     .on( "change", _.debounce(function() {
-                        updateVal( attr.key, attr.parseFn( $(this).val() ) );
+                        updateVal( id, attr.key, attr.parseFn( $(this).val() ) );
                     },500))
             });
         });
@@ -111,7 +111,7 @@ function setStages( id ) {
                     .text( completed ? "Completed" : "Complete" )
                     .unbind()
                     .on( "click", function() {
-                        updateVal( stage.key, moment().utc().format() )
+                        updateVal( id, stage.key, moment().utc().format() )
                             .then( function() {
                                 setStages( id );
                             });
