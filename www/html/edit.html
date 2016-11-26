@@ -23,11 +23,11 @@
 			<div class='row'>
 				<!-- TAB 1 -->
 					<label>Age</label>
-                    <input id='attr-age'></input>
+                    <input id='age'></input>
 				</div>
 				<div>
 					<label>Mode Of Transport</label>
-                    <select id='attr-mode-of-transport'>
+                    <select id='mode-of-transport'>
                         <option value='hospital-transport'>Hospital Shuttle</option>
                         <option value='private'>Private</option>
                         <option value='public'>Public</option>
@@ -35,7 +35,7 @@
 				</div>
 				<div>
 					<label>Ward Area</label>
-                    <select id='atrr-ward-area'>
+                    <select id='ward-area'>
                         <option value='blue'>Blue Area</option>
                         <option value='green'>Green Area</option>
                         <option value='red'>Red Area</option>
@@ -43,7 +43,7 @@
 				</div>
 				<div>
 					<label>Shift Of The Day</label>
-                    <select id='attr-shift-of-the-day'>
+                    <select id='shift-of-the-day'>
                         <option value='morning'>Morning</option>
                         <option value='afternoon'>Afternoon</option>
                         <option value='evening'>Evening</option>
@@ -51,28 +51,63 @@
 				</div>
 				<div>
 					<label>Vascular Access</label>
-                    <select id='attr-vascular-access'>
+                    <select id='vascular-access'>
                         <option value='arm'>Arm</option>
                         <option value='chest'>Chest</option>
                     </select>
 				</div>
 				<div>
 					<label>Mobility Status</label>
-                    <select id='attr-mobility-status'>
+                    <select id='mobility-status'>
                         <option value='none'>None</option>
                         <option value='walking-aid'>Walking Aid</option>
                         <option value='wheelchair'>Wheelchair</option>
                     </select>
 				</div>
+				<div>
+					<label>Nurse Seniority</label>
+                    <select id='nurse-seniority'>
+                        <option value='junior'>Junior</option>
+                        <option value='senior'>Senior</option>
+                    </select>
+				</div>
 
 				<!-- TAB 2 -->
-				<div>
-					STAGE NAME
-					<button>TOGGLE</button>
-					<span id='state'>WAITING</span>
-					<span id='time-delta'>00:05:11</span>
+				<div id='enter-waiting-room'>
+                    Enter Waiting Room
+					<button>Complete</button>
+					<span></span>
 				</div>
-				<button id='submit-timestatus'>SUBMIT</button>
+				<div id='leave-waiting-room'>
+                    Leave Waiting Room
+					<button>Complete</button>
+					<span></span>
+				</div>
+				<div id='nurse-begins-prep'>
+                    Nurse Begins Preparation
+					<button>Complete</button>
+					<span></span>
+				</div>
+				<div id='begin-dialysis'>
+                    Dialysis Begins
+					<button>Complete</button>
+					<span></span>
+				</div>
+				<div id='nurse-applies-bandage'>
+                    Nurse Applies Bandage
+					<button>Complete</button>
+					<span></span>
+				</div>
+				<div id='enter-waiting-room-done'>
+                    Re-Enter Waiting Room
+					<button>Complete</button>
+					<span></span>
+				</div>
+				<div id='exit-waiting-room-done'>
+                    Leave (Last Stage)
+					<button style="color:red">Complete</button>
+					<span></span>
+				</div>
 			</div>
 		</div>
 	</body>
