@@ -64,7 +64,6 @@ def get_patient_id():
 @app.route('/api/patient/<id>', methods=['PUT'])
 def update_patient(id):
     content = request.get_json(silent=True)
-    print content
     session = DBSession()
     patient = session.query(Patient).filter_by(id=id).one()
     for key, value in content.iteritems():
@@ -72,7 +71,7 @@ def update_patient(id):
     stmt = session.add(patient)
     session.commit()
     session.close()
-    return jsonify({})
+    return jsonify()
 
 
 @app.route('/api/patient', methods=['POST'])
