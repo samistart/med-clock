@@ -9,9 +9,9 @@ app.config.from_pyfile('config.py')
 db.init_app(app)
 
 
-@app.route("/www/<dir>/<fname>")
-def www(dir, fname):
-    return send_file(os.path.join("www", dir, fname))
+@app.route("/www/<path:fname>")
+def www(fname):
+    return send_file(os.path.join("www", fname))
 
 
 @app.route('/')
@@ -46,7 +46,7 @@ def experiment(id):
     })
 
 
-@app.route('/api/stage/<experiment_id>', methods=['GET', 'POST'])
+@app.route('/api/patient/<experiment_id>', methods=['GET', 'POST'])
 def stage(experiment_id):
     content = request.get_json(silent=False)
     print(content)
