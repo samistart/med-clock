@@ -74,7 +74,7 @@ def update_patient(id):
     return jsonify({})
 
 
-@app.route('/api/patient/create', methods=['POST'])
+@app.route('/api/patient', methods=['POST'])
 def create_patient():
     session = DBSession()
     patient = Patient()
