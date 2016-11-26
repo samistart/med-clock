@@ -26,8 +26,7 @@ def homepage():
 @app.route('/api/patient/<id>', methods=['GET'])
 def read_patient(id):
     session = DBSession()
-    result = session.query(Patient).filter_by(id=id)
-    print(result)
+    result = session.query(Patient).filter_by(id=id).one()
     return jsonify({
         "id": result.id,
         "age": result.age,
