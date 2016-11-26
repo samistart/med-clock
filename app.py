@@ -9,19 +9,16 @@ app.config.from_pyfile('config.py')
 db.init_app(app)
 
 
-@app.route("/www/<fname>")
-def www(fname):
-    return send_file(os.path.join("www", fname))
-
+@app.route("/www/<dir>/<fname>")
+def www(dir, fname):
+    return send_file(os.path.join("www", dir, fname))
 
 @app.route('/')
 def homepage():
     return redirect("/www/scan.html")
 
-
 def main():
     app.run()
-
 
 if __name__ == '__main__':
     main()
