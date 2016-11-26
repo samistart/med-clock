@@ -1,0 +1,10 @@
+- name: configure raspberry pi
+  hosts: raspberry
+  user: pi
+  sudo: yes
+  roles:
+    - common
+  vars_files:
+      - "host_vars/{{env}}"
+      - "group_vars/{{env}}/encrypted-vars.yml"
+  serial: 1
