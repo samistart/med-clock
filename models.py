@@ -10,42 +10,37 @@ from sqlalchemy.orm import sessionmaker
 Base = declarative_base()
 
 
-class Experiment(Base):
-    __tablename__ = 'Experiment'
-    id = Column('Id', Integer(), primary_key=True, nullable=False)
-    name = Column('Name', String(), nullable=False)
-
-    def __init__(self, name):
-        self.name = name
-
-
 class Patient(Base):
     __tablename__ = 'Patient'
     id = Column('Id', Integer(), primary_key=True, nullable=False)
     age = Column('Age', Integer(), nullable=False)
-    attributes = Column('Attributes', String(), nullable=True)
+    male = Column('Male', Boolean(), nullable=False)
+    transport_type = Column('transport_type', String())
+    ward_area = Column('ward_area', String())
+    shift = Column('shift', String())
+    vascular_access = Column('vascular_access', String())
+    mobility = Column('mobility', String())
+    nurse_seniority = Column('nurse_seniority', String())
+    enter_waiting_room = Column('enter_waiting_room', DateTime())
+    leave_waiting_room = Column('leave_waiting_room', DateTime())
+    nurse_begins_prep = Column('nurse_begins_prep', DateTime())
+    begin_dialysis = Column('begin_dialysis', DateTime())
+    end_dialysis = Column('end_dialysis', DateTime())
+    nurse_applies_bandage = Column('nurse_applies_bandage', DateTime())
+    enter_waiting_room_done = Column('enter_waiting_room_done', DateTime())
+    leave_waiting_room_done = Column('leave_waiting_room_done', DateTime())
 
-    def __init__(self, age, attributes):
+
+    def __init__(self, id, age, male, disabled, transport_type, ward_area, shift, vascular_access, mobility, nurse_seniority):
+        self.id = id
         self.age = age
-        self.attributes = attributes
-
-
-class Stage(Base):
-    __tablename__ = 'Stage'
-    experiment_id = Column('Experiment Id', Integer(), primary_key=True, nullable=False)
-    patient_id = Column('Patient Id', Integer(), primary_key=True, nullable=False)
-    number = Column('Number', Integer(), primary_key=True, nullable=False)
-    name = Column('Name', String(), nullable=False)
-    start = Column('Start', DateTime, default=datetime.datetime.now, index=True, nullable=False)
-    end = Column('End', DateTime, default=datetime.datetime.now, index=True, nullable=False)
-
-    def __init__(self, experiment_id, patient_id, number, name, start, end):
-        self.experiment_id = experiment_id
-        self.patient_id = patient_id
-        self.number = number
-        self.name = name
-        self.start = start
-        self.end = end
+        self.male = male
+        self.transport_type = transport_type
+        self.ward_area = ward_area
+        self.shift = shift
+        self.vascular_access = vascular_access
+        self.mobility = mobility
+        self.nurse_seniority = nurse_seniority
 
 engine = create_engine(SQLALCHEMY_DATABASE_URI)
 

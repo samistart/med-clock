@@ -1,8 +1,10 @@
 <html>
 	<head>
 		<script src="/www/js/jquery.js"></script>
-		<link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css'>
 		<script src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js'></script>
+        <script src="/www/js/qwest.min.js"></script>
+        <script src="/www/js/promise.js"></script>
+		<link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css'>
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
 		<link href='https://fonts.googleapis.com/css?family=Roboto:100,300,400,700,900,' rel='stylesheet' type='text/css'>
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
@@ -20,23 +22,48 @@
 			</div>
 			<div class='row'>
 				<!-- TAB 1 -->
-				<div>
-					<label>uwot</label>
-					<input>
+					<label>Age</label>
+                    <input id='attr-age'></input>
 				</div>
 				<div>
-					<label>uwot</label>
-					<input>
+					<label>Mode Of Transport</label>
+                    <select id='attr-mode-of-transport'>
+                        <option value='hospital-transport'>Hospital Shuttle</option>
+                        <option value='private'>Private</option>
+                        <option value='public'>Public</option>
+                    </select>
 				</div>
 				<div>
-					<label>uwot</label>
-					<input>
+					<label>Ward Area</label>
+                    <select id='atrr-ward-area'>
+                        <option value='blue'>Blue Area</option>
+                        <option value='green'>Green Area</option>
+                        <option value='red'>Red Area</option>
+                    </select>
 				</div>
 				<div>
-					<label>uwot</label>
-					<input>
+					<label>Shift Of The Day</label>
+                    <select id='attr-shift-of-the-day'>
+                        <option value='morning'>Morning</option>
+                        <option value='afternoon'>Afternoon</option>
+                        <option value='evening'>Evening</option>
+                    </select>
 				</div>
-				<button id='submit-inputs'>SUBMIT</button>
+				<div>
+					<label>Vascular Access</label>
+                    <select id='attr-vascular-access'>
+                        <option value='arm'>Arm</option>
+                        <option value='chest'>Chest</option>
+                    </select>
+				</div>
+				<div>
+					<label>Mobility Status</label>
+                    <select id='attr-mobility-status'>
+                        <option value='none'>None</option>
+                        <option value='walking-aid'>Walking Aid</option>
+                        <option value='wheelchair'>Wheelchair</option>
+                    </select>
+				</div>
 
 				<!-- TAB 2 -->
 				<div>
