@@ -55,6 +55,10 @@ def read_patient(id):
         "leave_waiting_room_done": str_date(patient.leave_waiting_room_done)
     })
 
+@app.route( "/api/macmap", methods = [ "GET" ] )
+def get_patient_id():
+    mac_address = request.args[ "mac" ]
+    return jsonify( 52 ) # find the patient id for me please
 
 @app.route('/api/patient/<id>', methods=['PUT'])
 def update_patient(id):
@@ -77,7 +81,7 @@ def create_patient():
     stmt = session.add(patient)
     session.commit()
     session.close()
-    return jsonify({})
+    return jsonify( patient.id )
 
 
 def main():
