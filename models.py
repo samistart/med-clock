@@ -12,9 +12,8 @@ Base = declarative_base()
 
 class Patient(Base):
     __tablename__ = 'Patient'
-    id = Column('Id', Integer(), primary_key=True, nullable=False)
-    age = Column('Age', Integer(), nullable=False)
-    male = Column('Male', Boolean(), nullable=False)
+    id = Column('Id', Integer(), primary_key=True, nullable=False, autoincrement=True)
+    age = Column('Age', Integer())
     transport_type = Column('transport_type', String())
     ward_area = Column('ward_area', String())
     shift = Column('shift', String())
@@ -30,6 +29,8 @@ class Patient(Base):
     enter_waiting_room_done = Column('enter_waiting_room_done', DateTime())
     leave_waiting_room_done = Column('leave_waiting_room_done', DateTime())
 
+    def __init__(self):
+        pass
 
     def __init__(self, id, age, male, disabled, transport_type, ward_area, shift, vascular_access, mobility, nurse_seniority):
         self.id = id

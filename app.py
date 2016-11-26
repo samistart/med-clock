@@ -26,11 +26,11 @@ def homepage():
 @app.route('/api/patient/<id>', methods=['GET'])
 def read_patient(id):
     session = DBSession()
-    patient = session.query(patient).filter_by(id=id).one()
+    patient = session.query(Patient).filter_by(id=id).one()
+    session.close()
     return jsonify({
         "id": patient.id,
         "age": patient.age,
-        "male": patient.male,
         "transport_type": patient.transport_type,
         "ward_area": patient.ward_area,
         "shift": patient.shift,
@@ -53,8 +53,22 @@ def update_patient(id):
     content = request.get_json(silent=True)
     session = DBSession()
     patient = session.query(Patient).filter_by(id=id).one()
-    print content
+    for key, value in content.iteritems():
+        setattr(patient, key, value)
+    stmt = session.add(patient)
+    session.commit()
+    session.close()
     return jsonify({})
+
+#
+# @app.route('/api/patient/create', methods=['POST'])
+# def create_patient():
+#     session = DBSession()
+#     patient = Patient()
+#     stmt = session.add(patient)
+#     session.commit()
+#     session.close()
+#     return jsonify({})
 
 
 def main():
