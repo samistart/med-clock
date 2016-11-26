@@ -33,37 +33,37 @@ var STAGES = [
 var ATTRIBUTES = [
     {
         key : "age",
-        query : "age",
+        query : "#age",
         parseFn : function(x) { return parseInt(x); } 
     },
     {
         key : "transport_type",
-        query : "mode-of-transport",
+        query : "#mode-of-transport",
         parseFn : function(x) { return x; }
     },
     {
         key : "ward_area",
-        query : "ward-area",
+        query : "#ward-area",
         parseFn : function(x) { return x; }
     },
     {
         key : "shift",
-        query : "shift-of-the-day",
+        query : "#shift-of-the-day",
         parseFn : function(x) { return x; }
     },
     {
         key : "vascular_access",
-        query : "vascular-access",
+        query : "#vascular-access",
         parseFn : function(x) { return x; }
     },
     {
         key : "mobility",
-        query : "mobility-status",
+        query : "#mobility-status",
         parseFn : function(x) { return x; }
     },
     {
         key : "nurse_seniority",
-        query : "nurse-seniority",
+        query : "#nurse-seniority",
         parseFn : function(x) { return x; }
     }
 ];
@@ -84,10 +84,11 @@ function updateVal( id, key, val ) {
 function setAttributes( id ) {
     return qwest.get( "/api/patient/" + id )
         .then( function( xhr, patient ) {
-            
+            console.log( "retrieved fresh set of attributes for: " + id );
             _.each( ATTRIBUTES, function( attr ) {
                 $(attr.query)
                     .val( patient[ attr.key ] )
+                    .unbind()
                     .on( "change", _.debounce(function() {
                         updateVal( attr.key, attr.parseFn( $(this).val() ) );
                     },500))
@@ -99,12 +100,13 @@ function setStages( id ) {
 
     return qwest.get( "/api/patient/" + id )
         .then( function( xhr, patient ) {
-            
+            console.log( "retrieved fresh set of stages for: " + id );
             _.each( STAGES, function( stage ) {
                 var completed = patient[ stage.key ] !== null;
-                $( stage.query )
+                $( stage.query + " button" )
                     .prop( "disabled", completed )
-                    .text( completed ? "Completed" : "Waiting" )
+                    .text( completed ? "Completed" : "Complete" )
+                    .unbind()
                     .on( "click", function() {
                         updateVal( stage.key, moment().utc().format() )
                             .then( function() {
