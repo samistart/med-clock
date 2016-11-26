@@ -33,16 +33,16 @@ class Patient(Base):
     def __init__(self):
         pass
 
-    def __init__(self, id, age, male, disabled, transport_type, ward_area, shift, vascular_access, mobility, nurse_seniority):
-        self.id = id
-        self.age = age
-        self.male = male
-        self.transport_type = transport_type
-        self.ward_area = ward_area
-        self.shift = shift
-        self.vascular_access = vascular_access
-        self.mobility = mobility
-        self.nurse_seniority = nurse_seniority
+    # def __init__(self, id, age, male, disabled, transport_type, ward_area, shift, vascular_access, mobility, nurse_seniority):
+    #     self.id = id
+    #     self.age = age
+    #     self.male = male
+    #     self.transport_type = transport_type
+    #     self.ward_area = ward_area
+    #     self.shift = shift
+    #     self.vascular_access = vascular_access
+    #     self.mobility = mobility
+    #     self.nurse_seniority = nurse_seniority
 
 engine = create_engine(SQLALCHEMY_DATABASE_URI)
 

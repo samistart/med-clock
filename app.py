@@ -64,15 +64,15 @@ def update_patient(id):
     session.close()
     return jsonify({})
 
-#
-# @app.route('/api/patient/create', methods=['POST'])
-# def create_patient():
-#     session = DBSession()
-#     patient = Patient()
-#     stmt = session.add(patient)
-#     session.commit()
-#     session.close()
-#     return jsonify({})
+
+@app.route('/api/patient/create', methods=['POST'])
+def create_patient():
+    session = DBSession()
+    patient = Patient()
+    stmt = session.add(patient)
+    session.commit()
+    session.close()
+    return jsonify({})
 
 
 def main():
