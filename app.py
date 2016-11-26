@@ -77,18 +77,17 @@ def read_patient(id):
 def get_patient_id(mac_address):
     content = request.get_json(silent=True)
     session = DBSession()
-    try:
-        patient = session.query(Patient).filter_by(mac_address=mac_address).one()
-    except NoResultFound:
-        return InvalidUsage('Mac address not found', status_code=404)
+    patient = session.query(Patient).filter_by(mac_address=mac_address).first()
     session.close()
-    return jsonify(patient.id)
+    if patient:
+        return jsonify(patient.id)
+    else:
+        return jsonify(-1)
 
 
 @app.route('/api/patient/<id>', methods=['PUT'])
 def update_patient(id):
     content = request.get_json(silent=True)
-    print content
     session = DBSession()
     patient = session.query(Patient).filter_by(id=id).one()
     for key, value in content.iteritems():
@@ -96,7 +95,7 @@ def update_patient(id):
     stmt = session.add(patient)
     session.commit()
     session.close()
-    return jsonify({})
+    return jsonify()
 
 
 @app.route('/api/patient', methods=['POST'])
