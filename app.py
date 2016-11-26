@@ -77,12 +77,10 @@ def read_patient(id):
 def get_patient_id(mac_address):
     content = request.get_json(silent=True)
     session = DBSession()
-    patient = session.query(Patient).filter_by(mac_address=mac_address).first()
+    patient = session.query(Patient).filter_by(mac_address=mac_address.upper()).first()
+    id = patient.id if patient is not None else None
     session.close()
-    if patient:
-        return jsonify(patient.id)
-    else:
-        return jsonify(-1)
+    return jsonify( id )
 
 
 @app.route('/api/patient/<id>', methods=['PUT'])
@@ -105,7 +103,7 @@ def create_patient():
     session.expire_on_commit = False
     patient = Patient()
     if content and ("mac_address" in content):
-        patient.mac_address = content["mac_address"]
+        patient.mac_address = content["mac_address"].upper()
     stmt = session.add(patient)
     print(patient.id)
     session.commit()
