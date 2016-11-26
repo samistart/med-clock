@@ -80,8 +80,9 @@ def create_patient():
     patient = Patient()
     stmt = session.add(patient)
     session.commit()
+    id = patient.id
     session.close()
-    return jsonify( patient.id )
+    return jsonify( id )
 
 
 def main():
