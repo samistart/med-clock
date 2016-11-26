@@ -1,5 +1,5 @@
 import os
-from flask import Flask, redirect, send_file, request, jsonify
+from flask import Flask, redirect, send_file, request, jsonify, abort
 from models import Patient
 from database import db
 from models import DBSession
@@ -9,9 +9,12 @@ app.config.from_pyfile('config.py')
 db.init_app(app)
 
 
-@app.route("/www/<dir>/<fname>")
-def www(dir, fname):
-    return send_file(os.path.join("www", dir, fname))
+@app.route("/www/<path:fname>")
+def www(fname):
+    path = os.path.join( "www", fname )
+    if not os.path.isfile(path):
+        return abort( 404 )
+    return send_file(path)
 
 
 @app.route('/')
@@ -72,7 +75,7 @@ def update_patient(id):
 
 
 def main():
-    app.run()
+    app.run("0.0.0.0")
 
 if __name__ == '__main__':
     main()

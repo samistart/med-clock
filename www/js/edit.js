@@ -2,68 +2,68 @@
 var STAGES = [
     {
         key : "enter_waiting_room",
-        id : "enter-waiting-room"
+        query : "#enter-waiting-room"
     },
     {
         key : "leave_waiting_room",
-        id : "leave-waiting-room",
+        query : "#leave-waiting-room",
     },
     {
         key : "nurse_begins_prep",
-        id : "nurse-begins-prep",
+        query : "#nurse-begins-prep",
     },
     {
         key : "begin_dialysis",
-        id : "begin-dialysis",
+        query : "#begin-dialysis",
     },
     {
         key : "end_dialysis",
-        id : "end-dialysis",
+        query : "#end-dialysis",
     },
     {
         key : "nurse_applies_bandage",
-        id : "nurse-applies-bandage",
+        query : "#nurse-applies-bandage",
     },
     {
         key : "enter_waiting_room_done",
-        id : "enter-waiting-room-done"
+        query : "#enter-waiting-room-done"
     }
 ]
 
 var ATTRIBUTES = [
     {
         key : "age",
-        id : "age",
+        query : "#age",
         parseFn : function(x) { return parseInt(x); } 
     },
     {
-        key : "mode_of_transport",
-        id : "mode-of-transport",
+        key : "transport_type",
+        query : "#mode-of-transport",
         parseFn : function(x) { return x; }
     },
     {
         key : "ward_area",
-        id : "ward-area",
+        query : "#ward-area",
         parseFn : function(x) { return x; }
     },
     {
-        key : "shift_of_the_day",
-        id : "shift-of-the-day",
+        key : "shift",
+        query : "#shift-of-the-day",
         parseFn : function(x) { return x; }
     },
     {
         key : "vascular_access",
-        id : "vascular-access",
+        query : "#vascular-access",
         parseFn : function(x) { return x; }
     },
     {
-        key : "mobility_status",
-        id : "mobility-status",
+        key : "mobility",
+        query : "#mobility-status",
         parseFn : function(x) { return x; }
     },
     {
         key : "nurse_seniority",
-        id : "nurse-seniority",
+        query : "#nurse-seniority",
         parseFn : function(x) { return x; }
     }
 ];
@@ -81,40 +81,52 @@ function updateVal( id, key, val ) {
         });
 }
 
-// disable a stage timer button due to stage being completed
-function disableButton( fullId ) {
-    $( fullId )
-        .prop( "disabled", true )
-        .text( "Completed" )
-        .css( { "color"  : "green" } );
-}
-
-$(document).ready(function() {
-
-    var id = 5;
-
-    qwest.get( "/api/patient/" + id )
+function setAttributes( id ) {
+    return qwest.get( "/api/patient/" + id )
         .then( function( xhr, patient ) {
-            
+            console.log( "retrieved fresh set of attributes for: " + id );
             _.each( ATTRIBUTES, function( attr ) {
-                $("#attr-" + attr.id)
+                $(attr.query)
                     .val( patient[ attr.key ] )
+                    .unbind()
                     .on( "change", _.debounce(function() {
                         updateVal( attr.key, attr.parseFn( $(this).val() ) );
                     },500))
             });
+        });
+}
 
+function setStages( id ) {
+
+    return qwest.get( "/api/patient/" + id )
+        .then( function( xhr, patient ) {
+            console.log( "retrieved fresh set of stages for: " + id );
             _.each( STAGES, function( stage ) {
-                var fullId = "#stage-" + stage.id; 
-                if( patient[ stage.key ] !== null )
-                    disableButton( fullId );
-                $( fullId )
+                var completed = patient[ stage.key ] !== null;
+                $( stage.query + " button" )
+                    .prop( "disabled", completed )
+                    .text( completed ? "Completed" : "Complete" )
+                    .unbind()
                     .on( "click", function() {
-                        disableButton( fullId );
-                        updateVal( stage.key, moment().utc().format() );
+                        updateVal( stage.key, moment().utc().format() )
+                            .then( function() {
+                                setStages( id );
+                            });
                     });
             });
 
+            setTimeout( function() {
+                setStages( id );
+            }, 1000 );
+
         });
+}
+
+$(document).ready(function() {
+
+    var id = querystring.parse().id;
+    setAttributes( id );
+    setStages( id );
+
 
 });
