@@ -60,6 +60,7 @@ def get_patient_id():
     mac_address = request.args[ "mac" ]
     return jsonify( 52 ) # find the patient id for me please
 
+
 @app.route('/api/patient/<id>', methods=['PUT'])
 def update_patient(id):
     content = request.get_json(silent=True)
@@ -74,13 +75,14 @@ def update_patient(id):
     return jsonify({})
 
 
-@app.route('/api/patient/create', methods=['POST'])
+@app.route('/api/patient', methods=['POST'])
 def create_patient():
     session = DBSession()
     session.expire_on_commit = False
     patient = Patient()
     stmt = session.add(patient)
     session.commit()
+    id = patient.id
     session.close()
     return jsonify(patient.id)
 
