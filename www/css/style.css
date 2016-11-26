@@ -1,6 +1,9 @@
 body {margin:0px;padding:0px;font-family:'Roboto';background:rgba(0,0,0,0.07	);}
+a {text-decoration:none !important;color:rgba(0,0,0,0.6);}
+a:hover {text-decoration:none !important;color:rgba(0,0,0,0.8);}
 
-.col-lowpad {padding:3px !important;}
+
+.col-lowpad {padding:5px !important;}
 .uppercase-txt {font-weight:900;letter-spacing:3px}
 .md-card {
 	background:white;
@@ -28,7 +31,7 @@ body {margin:0px;padding:0px;font-family:'Roboto';background:rgba(0,0,0,0.07	);}
 	background:#26EAB9;
 	cursor:pointer;
 	cursor:hand;
-	color:white;
+	color:white !important;
 	font-weight:900;
 	letter-spacing:3px;
 	font-size:12px;
@@ -38,14 +41,14 @@ body {margin:0px;padding:0px;font-family:'Roboto';background:rgba(0,0,0,0.07	);}
 	background:white;
 	padding:3px;
   	box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
-	margin-top:20px;
+	margin-top:12px;
 	height:150px;
 	border-radius:0px 150px 150px 0px;
 }
 .meta-content { float:left; padding-left:10px;} 
 .meta-content h3 { font-weight:900; letter-spacing:3px; font-size:14px; margin-top:14}
 .meta-content p {font-weight:300;max-width:230px;font-size:12px;color:rgba(0,0,0,0.5);}
-.meta-content input { border:none; border-bottom:solid 1px rgba(0,0,0,0.1); outline:none !important; width:220px;position:absolute;} 
+.meta-content input { border:none; border-bottom:solid 1px rgba(0,0,0,0.1); outline:none !important; width:220px;position:absolute;height:35px;line-height:35px;} 
 .meta-tag {padding:5px 12px;border-radius:12px; display:inline-block;margin-top:5px;color:white;}
 .meta-tags-1, .meta-tags-2 { padding:20px 5px; }
 .meta-tags-1 .meta-tag { background:#26EAB9;}
@@ -60,3 +63,16 @@ body {margin:0px;padding:0px;font-family:'Roboto';background:rgba(0,0,0,0.07	);}
 	position:relative;
 	float:right;
 }
+
+h4.h-main { font-weight:900; letter-spacing:3px; }
+h4.h-field { font-weight:900; font-size:14px;letter-spacing:3px; }
+h4.h-thin { font-weight:300; font-size:10px;letter-spacing:3px; }
+
+.rotate-20 {
+    -webkit-animation:spin 20s linear infinite;
+    -moz-animation:spin 20s linear infinite;
+    animation:spin 20s linear infinite;
+}
+@-moz-keyframes spin { 100% { -moz-transform: rotate(360deg); } }
+@-webkit-keyframes spin { 100% { -webkit-transform: rotate(360deg); } }
+@keyframes spin { 100% { -webkit-transform: rotate(360deg); transform:rotate(360deg); } }
