@@ -13,6 +13,7 @@ Base = declarative_base()
 class Patient(Base):
     __tablename__ = 'Patient'
     id = Column('Id', Integer(), primary_key=True, nullable=False, autoincrement=True)
+    mac_address = Column('mac_address', String(), unique=True)
     age = Column('Age', Integer())
     transport_type = Column('transport_type', String())
     ward_area = Column('ward_area', String())

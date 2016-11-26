@@ -33,6 +33,7 @@ def read_patient(id):
     session.close()
     return jsonify({
         "id": patient.id,
+        "mac_address": patient.mac_address,
         "age": patient.age,
         "transport_type": patient.transport_type,
         "ward_area": patient.ward_area,
