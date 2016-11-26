@@ -24,5 +24,13 @@ Vagrant.configure("2") do |config|
     v.customize ["modifyvm", :id, "--natdnshostresolver1", "on"]
     v.memory = 1000
     v.cpus = 2
+
+    v.customize ["modifyvm", :id, "--usb", "on"]
+    v.customize ["modifyvm", :id, "--usbehci", "on"]
+    v.customize ["usbfilter", "add", "0",
+        "--target", :id,
+        "--name", "bluetooth dongle",
+        "--manufacturer", "Apple Inc.",
+        "--product", "Bluetooth USB Host Controller"]
   end
 end
