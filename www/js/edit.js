@@ -27,6 +27,10 @@ var STAGES = [
     {
         key : "enter_waiting_room_done",
         query : "#enter-waiting-room-done"
+    },
+    {
+        key : "exit_waiting_room_done",
+        query : "#exit-waiting-room-done"
     }
 ]
 
@@ -96,7 +100,7 @@ function setAttributes( id ) {
         });
 }
 
-function setStages( id ) {
+function setStages( id, doLoop ) {
 
     return qwest.get( "/api/patient/" + id )
         .then( function( xhr, patient ) {
@@ -105,7 +109,7 @@ function setStages( id ) {
                 var completed = patient[ stage.key ] !== null;
                 var endTime = completed ? moment( patient[ stage.key ] ) : moment().utc();
                 $( stage.query + " span" )
-                    .val( endTime.format() );
+                    .text( endTime.format() );
                 $( stage.query + " button" )
                     .prop( "disabled", completed )
                     .text( completed ? "Completed" : "Complete" )
@@ -113,24 +117,26 @@ function setStages( id ) {
                     .on( "click", function() {
                         updateVal( id, stage.key, moment().utc().format() )
                             .then( function() {
-                                setStages( id );
+                                setStages( id, false );
                             });
                     });
             });
 
-            setTimeout( function() {
-                setStages( id );
-            }, 1000 );
+            if( dooLoop )
+                setTimeout( function() {
+                    setStages( id, doLoop );
+                }, 1000 );
 
         });
 }
 
 $(document).ready(function() {
 
+    qwest.setDefaultDataType( "json" );
     var id = querystring.parse().id;
     $("#id-field").val( id );
     setAttributes( id );
-    setStages( id );
+    setStages( id, true );
 
 
 });
