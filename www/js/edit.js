@@ -103,6 +103,9 @@ function setStages( id ) {
             console.log( "retrieved fresh set of stages for: " + id );
             _.each( STAGES, function( stage ) {
                 var completed = patient[ stage.key ] !== null;
+                var endTime = completed ? moment( patient[ stage.key ] ) : moment().utc();
+                $( stage.query + " span" )
+                    .val( endTime.format() );
                 $( stage.query + " button" )
                     .prop( "disabled", completed )
                     .text( completed ? "Completed" : "Complete" )
@@ -125,6 +128,7 @@ function setStages( id ) {
 $(document).ready(function() {
 
     var id = querystring.parse().id;
+    $("#id-field").val( id );
     setAttributes( id );
     setStages( id );
 
