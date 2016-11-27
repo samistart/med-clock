@@ -9,10 +9,11 @@ from datetime import datetime
 devices = {}
 serverIp = "52.211.183.223"
 
-station = "enter_waiting_room"
+enterStation = "enter_waiting_room"
+leaveStation = "leave_waiting_room"
 
 
-def patientInStage(patientId):
+def patientInStage(patientId, stage):
     client = HTTPClient()
     try:
         response = client.fetch("http://" + serverIp + ":5000/api/patient/" + patientId.rstrip())
@@ -23,11 +24,11 @@ def patientInStage(patientId):
 
     try:
         decoded = json.loads(response.body)
-        if "enter_waiting_room" in decoded and decoded["enter_waiting_room"] is None:
-            print("patient: " + patientId + " not in stage")
+        if stage in decoded and decoded[stage] is None:
+            print("patient: " + patientId + " not in stage " + stage)
             return False
         else:
-            print("patient: " + patientId + " in stage")
+            print("patient: " + patientId + " in stage " + stage)
             return True
     except Exception as e:
         print("decode patient stage error")
@@ -55,11 +56,11 @@ def enterStage(addr, timestamp):
     if patientId is None or patientId is 0:
         return  # Unable to retreive patient -> quit
 
-    if patientInStage(patientId) == True:
+    if patientInStage(patientId, enterStation) == True:
         return  # Patient already logged -> quit
 
     # Add area entering time
-    body = {station: str(datetime.fromtimestamp(timestamp))}
+    body = {enterStation: str(datetime.fromtimestamp(timestamp))}
 
     client = HTTPClient()
     try:
@@ -81,13 +82,32 @@ def enterStage(addr, timestamp):
 
 def leaveStage(addr, timestamp):
     client = HTTPClient()
-    body = {"experiment_id": 1, "patient_id": 1, "stage_id": 1, "patient": addr, "timestamp": timestamp}
 
-    response = client.fetch("http://" + serverIp + ":5000/api/stage/1", method="POST", body=urlencode(body),
-                            headers=urlencode({}))
+    patientId = getMac(addr)
+    if patientId is None or patientId is 0:
+        return  # Unable to retreive patient -> quit
 
-    print(response.body)
-    client.close()
+    if patientInStage(patientId, leaveStation) == True:
+        return  # Patient already logged -> quit
+
+    # Add area entering time
+    body = {leaveStation: str(datetime.fromtimestamp(timestamp))}
+
+    client = HTTPClient()
+    try:
+        headers = {'Content-Type': 'application/json; charset=UTF-8'}
+        url = "http://" + serverIp + ":5000/api/patient/" + patientId.rstrip()
+        print(url)
+        from pprint import pprint
+        pprint(body)
+        request = HTTPRequest(url, method="PUT", body=json.dumps(body), headers=headers)
+        response = client.fetch(request)
+        print(response.body)
+        client.close()
+    except Exception as e:
+        print("error in add stage request")
+        print("Error: " + str(e))
+
     return
 
 
@@ -105,7 +125,7 @@ def scan():
             # update timestime
             devices[addr] = (name, timeStamp)
             print("updated device: %s - %s, new time: %s" % (addr, name, str(devices[addr][1])))
-            # leaveStage(addr, timeStamp)
+            leaveStage(addr, timeStamp)
     return timeStamp
 
 
