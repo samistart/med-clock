@@ -9,9 +9,9 @@ from datetime import datetime
 devices = {}
 serverIp = "52.211.183.223"
 
-#tim's raspberry
-enterStation = "enter_waiting_room"
-leaveStation = "leave_waiting_room"
+#Ed's raspberry
+enterStation = "nurse_begins_prep"
+leaveStation = "begin_dialysis"
 
 
 def patientInStage(patientId, stage):
