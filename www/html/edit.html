@@ -26,11 +26,20 @@
 				line-height:40px;
 				outline:none;
 			}
+			.tab-1-left label {margin-top:12px;}
+			button {padding:5px 10px;text-transform:uppercase;border:none;color:white;font-weight:900;letter-spacing:2px;margin-left:12px; outline:none;}
+			button:disabled {background:#26EAB9;}
+			.right-half i {padding:12px;}
+			.process-step {background:white;padding:12px;border-radius:12px;margin-top:12px;position:relative;overflow:auto;}
+			.process-heading {font-weight:900;}
+			h4.h-field {
+				color:#26EAB9;
+			}
 		</style>
 	</head>
 	<body>
-        <h3 id='id-field'></h3>
-        <h4 id='mac'></h3>
+        <span id='id-field' style='font-size:10px;float:right'></span>
+        <span id='mac' style='font-size:10px;float:right'></span>
 		<div class='container-fluid' style='max-width:1000px'>
 			<div class='row'>
 				<center>
@@ -40,125 +49,125 @@
 				</center>
 			</div>
 			<div class='row'>
-				<div class='col-sm-6'>
+				<div class='col-sm-5 left-half'>
 					<label>Age</label>
                     <input id='age'></input>
-                    <div>
-					<label>Mode Of Transport</label>
-                    <select id='mode-of-transport'>
-                        <option value='hospital-transport'>Hospital Shuttle</option>
-                        <option value='private'>Private</option>
-                        <option value='public'>Public</option>
-                    </select>
-					<label>Ward Area</label>
-                    <select id='ward-area'>
-                        <option value='blue'>Blue Area</option>
-                        <option value='green'>Green Area</option>
-                        <option value='red'>Red Area</option>
-                    </select>
-					<label>Shift Of The Day</label>
-                    <select id='shift-of-the-day'>
-                        <option value='morning'>Morning</option>
-                        <option value='afternoon'>Afternoon</option>
-                        <option value='evening'>Evening</option>
-                    </select>
-					<label>Vascular Access</label>
-                    <select id='vascular-access'>
-                        <option value='arm'>Arm</option>
-                        <option value='chest'>Chest</option>
-                    </select>
-					<label>Mobility Status</label>
-                    <select id='mobility-status'>
-                        <option value='none'>None</option>
-                        <option value='walking-aid'>Walking Aid</option>
-                        <option value='wheelchair'>Wheelchair</option>
-                    </select>
+	                <div>
+						<label>Mode Of Transport</label>
+	                    <select id='mode-of-transport'>
+	                        <option value='hospital-transport'>Hospital Shuttle</option>
+	                        <option value='private'>Private</option>
+	                        <option value='public'>Public</option>
+	                    </select>
+						<label>Ward Area</label>
+	                    <select id='ward-area'>
+	                        <option value='blue'>Blue Area</option>
+	                        <option value='green'>Green Area</option>
+	                        <option value='red'>Red Area</option>
+	                    </select>
+						<label>Shift Of The Day</label>
+	                    <select id='shift-of-the-day'>
+	                        <option value='morning'>Morning</option>
+	                        <option value='afternoon'>Afternoon</option>
+	                        <option value='evening'>Evening</option>
+	                    </select>
+						<label>Vascular Access</label>
+	                    <select id='vascular-access'>
+	                        <option value='arm'>Arm</option>
+	                        <option value='chest'>Chest</option>
+	                    </select>
+						<label>Mobility Status</label>
+	                    <select id='mobility-status'>
+	                        <option value='none'>None</option>
+	                        <option value='walking-aid'>Walking Aid</option>
+	                        <option value='wheelchair'>Wheelchair</option>
+	                    </select>
+					</div>
+					<div>
+						<label>Nurse Seniority</label>
+	                    <select id='nurse-seniority'>
+	                        <option value='junior'>Junior</option>
+	                        <option value='senior'>Senior</option>
+	                    </select>
+					</div>
 				</div>
-				<div>
-					<label>Nurse Seniority</label>
-                    <select id='nurse-seniority'>
-                        <option value='junior'>Junior</option>
-                        <option value='senior'>Senior</option>
-                    </select>
-				</div>
-				</div>
-				<div class='col-sm-6'></div>
-			</div>
-			<div class='row'>
-				<div class='col-sm-6'>
-					<table>
-						<tr>
-							<th style='font-weight:900;letter-spacing:3px'>STAGE</th>
-							<th style='font-weight:900;letter-spacing:3px'>STATUS</th>
-						</tr>
-						<tr>
-							<td></td>
-							<td></td>
-						</tr>
-						<tr>
-							<td></td>
-							<td></td>
-						</tr>
-						<tr>
-							<td></td>
-							<td></td>
-						</tr>
-						<tr>
-							<td></td>
-							<td></td>
-						</tr>
-						<tr>
-							<td></td>
-							<td></td>
-						</tr>
-						<tr>
-							<td></td>
-							<td></td>
-						</tr>
-						<tr>
-							<td></td>
-							<td></td>
-						</tr>
 
-					</table>
-					<div id='enter-waiting-room'>
-	                    Waiting Room (Start)
-						<button>Complete</button>
-						<span></span>
+				<div class='col-sm-7 right-half'>
+					<div id='enter-waiting-room' class='process-step'>
+						<div style='float:left'>
+							<h4 class='h-field' style='font-size:12px; margin:0'>STEP 1</h4>
+	                    	<div class='process-heading'>Waiting Room (Start)</div>
+	                    </div>
+	                    
+	                    <div style='float:right'>
+							<span class='process-time'></span>
+							<button>RECORD</button>
+	                    </div>
 					</div>
-					<div id='leave-waiting-room'>
-	                    Walk to Bed
-						<button>Complete</button>
-						<span></span>
+					<div id='leave-waiting-room' class='process-step'>
+						<div style='float:left'>
+							<h4 class='h-field' style='font-size:12px; margin:0'>STEP 2</h4>
+	                    	<div class='process-heading'>Walk to Bed</div>
+	                    </div>
+	                    
+	                    <div style='float:right'>
+							<span class='process-time'></span>
+							<button>RECORD</button>
+	                    </div>
 					</div>
-					<div id='nurse-begins-prep'>
-	                    Nurse Preparation
-						<button>Complete</button>
-						<span></span>
+					<div id='nurse-begins-prep' class='process-step'>
+						<div style='float:left'>
+							<h4 class='h-field' style='font-size:12px; margin:0'>STEP 3</h4>
+	                    	<div class='process-heading'>Nurse Preparation</div>
+	                    </div>
+	                    
+	                    <div style='float:right'>
+							<span class='process-time'></span>
+							<button>RECORD</button>
+	                    </div>
 					</div>
-					<div id='begin-dialysis'>
-	                    Dialysis Cycle
-						<button>Complete</button>
-						<span></span>
+					<div id='begin-dialysis' class='process-step'>
+						<div style='float:left'>
+							<h4 class='h-field' style='font-size:12px; margin:0'>STEP 4</h4>
+	                    	<div class='process-heading'>Dialysis Cycle</div>
+	                    </div>
+	                    
+	                    <div style='float:right'>
+							<span class='process-time'></span>
+							<button>RECORD</button>
+	                    </div>
 					</div>
-					<div id='nurse-applies-bandage'>
-	                    Bandage Application
-						<button>Complete</button>
-						<span></span>
+					<div id='nurse-applies-bandage' class='process-step'>
+						<div style='float:left'>
+							<h4 class='h-field' style='font-size:12px; margin:0'>STEP 5</h4>
+	                    	<div class='process-heading'>Bandage Application</div>
+	                    </div>
+	                    <div style='float:right'>
+							<span class='process-time'></span>
+							<button>RECORD</button>
+	                    </div>
 					</div>
-					<div id='enter-waiting-room-done'>
-	                    Walk to Waiting Room
-						<button>Complete</button>
-						<span></span>
+					<div id='enter-waiting-room-done' class='process-step'>
+						<div style='float:left'>
+							<h4 class='h-field' style='font-size:12px; margin:0'>STEP 6</h4>
+	                    	<div class='process-heading'>Walk to Waiting Room</div>
+	                    </div>
+	                    <div style='float:right'>
+							<span class='process-time'></span>
+							<button>RECORD</button>
+	                    </div>
 					</div>
-					<div id='exit-waiting-room-done'>
-	                    Waiting Room (End)
-						<button>Complete</button>
-						<span></span>
+					<div id='exit-waiting-room-done' class='process-step'>
+						<div style='float:left'>
+							<h4 class='h-field' style='font-size:12px; margin:0'>STEP 7</h4>
+	                    	<div class='process-heading'>Waiting Room (End)</div>
+	                    </div>
+	                    <div style='float:right'>
+							<span class='process-time'></span>
+							<button>RECORD</button>
+	                    </div>
 					</div>
 				</div>
-					
-				<div class='col-sm-6'></div>
 			</div>
 		</div>
 	</body>
